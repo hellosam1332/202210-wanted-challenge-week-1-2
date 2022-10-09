@@ -11,3 +11,7 @@ title: hello
 ```typescript
 const num: number = 4;
 ```
+
+```javascript
+console.log('Hello World');
+```
