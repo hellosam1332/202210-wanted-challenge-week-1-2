@@ -35,20 +35,20 @@ Constraints:
 
 `1 <= nums[i] <= 100`
 
-풀이
-이러한 문제의 경우 비효율적이라고 생각될지는 몰라도 일단 모든 경우의 수를 찾아 비교해보는 방식으로 접근해보는게 빠를때가 있다.
+## 풀이
+이러한 문제의 경우 비효율적이라고 생각될지는 몰라도 일단 모든 경우의 수를 찾아 비교해보는 방식으로 접근해보는게 빠를 때가 있다.
 
 주어진 배열의 모든 정수의 합을 total,
 subset 의 모든 정수의 합을 a 라고 했을 때
 a + a = 2a = total 이므로
-a * 2 = total 이 되는 sebset 을 찾으면 된다.
+a * 2 = total 이 되는 subset 을 찾으면 된다.
 
 주어진 배열의 모든 subset 을 찾아 조건이 맞는지 확인해보자.
 
 ```typescript
 function canPartition(nums: number[]) {
-// 정수 배열의 모든 합
-const total = nums.reduce((prev, curr) => prev + curr);
+    // 정수 배열의 모든 합
+    const total = nums.reduce((prev, curr) => prev + curr);
 
     // 합을 2로 나누었을 때 짝수가 아니면 답이 나올수가 없다.
     if (total % 2 !== 0) {
@@ -79,16 +79,18 @@ const total = nums.reduce((prev, curr) => prev + curr);
 
 이유는 모든 subset 을 재귀하여 경우의 수를 구하기 때문에 어마어마한 시간이 들어간다.
 
-Dynamic Programming
+## Dynamic Programming
 이를 해결하기 위해 DP 를 적용해보자
 
 ```typescript
 function canPartition(nums: number[]) {
-const total = nums.reduce((prev, curr) => prev + curr);
+    const total = nums.reduce((prev, curr) => prev + curr);
 
     if (total % 2 !== 0) {
         return false
     }
+    
+    const memo = new Map<string, boolean>();
 
     const recurse = (index: number, sum: number): boolean => {
         const key = index.toString() + sum.toString();
@@ -110,8 +112,7 @@ const total = nums.reduce((prev, curr) => prev + curr);
         memo.set(key, foundPartition);
         return foundPartition;
     };
-
-    const memo = new Map<string, boolean>();
+    
     return recurse(0, 0);
 }
 ```
