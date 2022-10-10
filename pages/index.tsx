@@ -1,6 +1,7 @@
 import type {GetStaticProps} from 'next'
 import * as fs from "fs";
-import Link from 'next/link';
+import styled from "@emotion/styled";
+import PostNavigation from "../src/components/PostNavigation";
 
 interface Props {
   posts: string[];
@@ -8,19 +9,16 @@ interface Props {
 
 const Home = ({posts}: Props) => {
   return (
-    <div>
-      <nav>
-        <ul>
-          {posts.map((post) =>
-            <li key={post}>
-              <Link href={`/${post}`}>{post}</Link>
-            </li>)
-          }
-        </ul>
-      </nav>
-    </div>
+    <Container>
+      <PostNavigation posts={posts}/>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  width: 1050px;
+  margin: 0 auto;
+`;
 
 export default Home
 
