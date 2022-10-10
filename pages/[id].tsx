@@ -46,7 +46,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const post = fs.readFileSync(path.join(`__posts/${id}.md`));
   const {data, content} = matter(post);
-  console.info(data)
   const html = await unified()
     .use(remarkParse)
     .use(remarkStringify)
